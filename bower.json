@@ -1,0 +1,21 @@
+{
+  "name": "redditclone2",
+  "version": "0.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "vue": "*",
+    "vue-resource": "*",
+    "fontawesome": "~4.4.0",
+    "moment": "~2.10.6"
+  },
+  "devDependencies": {
+    "bootstrap": "https://github.com/twbs/bootstrap.git#v4-dev"
+  }
+}

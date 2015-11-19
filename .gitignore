@@ -1,0 +1,14 @@
+/vendor
+/node_modules
+Homestead.yaml
+Homestead.json
+.env
+
+public/css
+public/fonts
+public/js
+public/imgs
+resources/scrap
+tests/_output/*
+storage/
+
