@@ -58,6 +58,8 @@
                                 this.playlist = response;
                                 this.$emit('reload-playlist');
                             });
+                        } else {
+                            this.$emit('reload-playlist');
                         }
                     },
                     prev: function() {
