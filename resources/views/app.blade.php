@@ -20,7 +20,8 @@
             <div class="splash" v-show="playlist === undefined"></div>
             <div v-show="playlist !== undefined">
                 <div id="player"></div>
-            <div>
+            </div>
+            <span class="logo" v-show="playlist !== undefined"></span>
         </div>
         <script>
             var app = new Vue({

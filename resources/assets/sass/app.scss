@@ -5,7 +5,8 @@
     margin: 1rem 0;
 }
 
-.splash {
+.splash,
+.logo {
     animation-duration: 2.5s;
     animation-fill-mode: both;
     animation-iteration-count: infinite;
@@ -16,6 +17,17 @@
     &:before {
         content: 'π';
     }
+}
+.splash {
+    font-size: 20rem;
+}
+.logo {
+    bottom: 0;
+    font-size: 4rem;
+    line-height: 4rem;
+    padding: 1rem;
+    position: fixed;
+    right: 0;
 }
 
 @keyframes pulse {
