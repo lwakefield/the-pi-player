@@ -1,3 +1,25 @@
 @import "bootstrap-flex";
 @import "font-awesome";
 
+.search {
+    margin: 1rem 0;
+}
+
+.splash {
+    animation-duration: 2.5s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-name: pulse;
+    color: $gray-lighter;
+    font-size: 20rem;
+    text-align: center;
+    &:before {
+        content: 'π';
+    }
+}
+
+@keyframes pulse {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.1);}
+  100% {transform: scale(1);}
+}

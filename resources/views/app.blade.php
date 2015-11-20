@@ -11,13 +11,16 @@
     </head>
     <body>
         <div class="app container">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for an artist" v-model="search_term" @keyup:enter="new">
+            <div class="search input-group">
+                <input type="text" class="form-control" placeholder="Search for an artist" v-model="search_term" @keyup.enter="new">
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="button" @click="new"> Go </button>
                 </span>
             </div>
-            <div id="player"></div>
+            <div class="splash" v-show="playlist === undefined"></div>
+            <div v-show="playlist !== undefined">
+                <div id="player"></div>
+            <div>
         </div>
         <script>
             var app = new Vue({
