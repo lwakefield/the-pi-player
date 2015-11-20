@@ -20,6 +20,12 @@
             <div class="splash" v-show="playlist === undefined"></div>
             <div v-show="playlist !== undefined">
                 <div id="player"></div>
+                <div class="controls text-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" @click="prev"><span class="fa fa-fast-backward"></span></button>
+                        <button type="button" class="btn btn-secondary" @click="next"><span class="fa fa-fast-forward"></span></button>
+                    </div>
+                </div>
             </div>
             <span class="logo" v-show="playlist !== undefined"></span>
         </div>
@@ -29,6 +35,7 @@
                 data: {
                     search_term: '',
                     playlist: undefined,
+                    current_song: -1,
                     player: undefined
                 },
                 created: function() {
@@ -39,20 +46,31 @@
                         var data = {'search_term': this.search_term};
                         this.$http.post('/api/playlist', data, function (response, status, request) {
                             this.playlist = response;
-                            this.$emit('load-playlist');
+                            this.current_song = 0;
+                            this.$emit('reload-playlist');
                         });
                     },
                     next: function() {
-                        var url = '/api/playlist/' + this.playlist.id + '/next';
-                        this.$http.get(url, function (response, status, request) {
-                            this.playlist = response;
-                            this.$emit('load-playlist');
-                        });
+                        this.current_song++;
+                        if (this.current_song == this.playlist.songs.length) {
+                            var url = '/api/playlist/' + this.playlist.id + '/next';
+                            this.$http.get(url, function (response, status, request) {
+                                this.playlist = response;
+                                this.$emit('reload-playlist');
+                            });
+                        }
+                    },
+                    prev: function() {
+                        this.current_song--;
+                        if (this.current_song < 0) {
+                            this.current_song = 0;
+                        }
+                        this.$emit('reload-playlist');
                     }
                 },
                 events: {
-                    'load-playlist': function() {
-                        var song = this.playlist.songs[this.playlist.songs.length - 1];
+                    'reload-playlist': function() {
+                        var song = this.playlist.songs[this.current_song];
                         this.player.loadVideoById(song.video_id);
                     },
                     'load-player': function() {
