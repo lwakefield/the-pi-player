@@ -23,6 +23,10 @@
                 <div class="controls text-center">
                     <div class="btn-group">
                         <button type="button" class="btn btn-secondary" @click="prev"><span class="fa fa-fast-backward"></span></button>
+                        <button type="button" class="btn btn-secondary" @click="togglePlay">
+                            <span class="fa fa-play" v-if="status === 'paused'"></span>
+                            <span class="fa fa-pause" v-else></span>
+                        </button>
                         <button type="button" class="btn btn-secondary" @click="next"><span class="fa fa-fast-forward"></span></button>
                     </div>
                 </div>
@@ -36,7 +40,8 @@
                     search_term: '',
                     playlist: undefined,
                     current_song: -1,
-                    player: undefined
+                    player: undefined,
+                    status: ''
                 },
                 created: function() {
                     this.$emit('load-player');
@@ -68,6 +73,13 @@
                             this.current_song = 0;
                         }
                         this.$emit('reload-playlist');
+                    },
+                    togglePlay: function() {
+                        if (this.player.getPlayerState() == YT.PlayerState.PAUSED) {
+                            this.player.playVideo();
+                        } else {
+                            this.player.pauseVideo();
+                        }
                     }
                 },
                 events: {
@@ -105,6 +117,11 @@
             function onPlayerStateChange(event) {
                 if (event.data == YT.PlayerState.ENDED) {
                     app.$emit('video-ended');
+                    app.status = 'ended';
+                } else if (event.data == YT.PlayerState.PLAYING) {
+                    app.status = 'playing';
+                } else if (event.data == YT.PlayerState.PAUSED) {
+                    app.status = 'paused';
                 }
             }
         </script>
